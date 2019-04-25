@@ -43,7 +43,7 @@
       <h4>You always find your mind wandering.</h4>
       <select class="chosen-select" id="q1">
         <option value=""></option>
-        <option value="1">1 (Strongly Agree)</option>
+        <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -54,7 +54,7 @@
       <h4>You find it easy to focus even under pressure.</h4>
       <select class="chosen-select" id="q2">
         <option value=""></option>
-        <option value="1">1 (Strongly Agree)</option>
+        <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -65,7 +65,7 @@
       <h4>You hardly do something out of pure impulse.</h4>
       <select class="chosen-select" id="q3">
         <option value=""></option>
-        <option value="1">1 (Strongly Agree)</option>
+        <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -76,7 +76,7 @@
       <h4>You rarely let people upset you.</h4>
       <select class="chosen-select" id="q4">
         <option value=""></option>
-        <option value="1">1 (Strongly Agree)</option>
+        <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -87,7 +87,7 @@
       <h4>It is hard for you to get along with others.</h4>
       <select class="chosen-select" id="q5">
         <option value=""></option>
-        <option value="1">1 (Strongly Agree)</option>
+        <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -98,7 +98,7 @@
       <h4>You are more active then lazy.</h4>
       <select class="chosen-select" id="q6">
         <option value=""></option>
-        <option value="1">1 (Strongly Agree)</option>
+        <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -109,7 +109,7 @@
       <h4>You are more energetic when you are listening to music.</h4>
       <select class="chosen-select" id="q7">
         <option value=""></option>
-        <option value="1">1 (Strongly Agree)</option>
+        <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -120,7 +120,7 @@
       <h4>You enjoy playing sports more than watching Television</h4>
       <select class="chosen-select" id="q8">
         <option value=""></option>
-        <option value="1">1 (Strongly Agree)</option>
+        <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -131,7 +131,7 @@
       <h4>You think you should be respected when you give it.</h4>
       <select class="chosen-select" id="q9">
         <option value=""></option>
-        <option value="1">1 (Strongly Agree)</option>
+        <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -142,7 +142,7 @@
       <h4>You act like no one wants to understand you</h4>
       <select class="chosen-select" id="q10">
         <option value=""></option>
-        <option value="1">1 (Strongly Agree)</option>
+        <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -166,7 +166,7 @@
         <div class="container">
           <p>
             <a href="/api/friends">API Friends List</a> |
-            <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a>
+            <a href="https://github.com/juliank2/friendfinder">GitHub Repo</a>
           </p>
         </div>
       </footer>
@@ -199,5 +199,83 @@
         </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+      // Chosen CSS
+      var config = {
+        ".chosen-select": {},
+        ".chosen-select-deselect": {
+          allow_single_deselect: true
+        },
+        ".chosen-select-no-single": {
+          disable_search_threshold: 10
+        },
+        ".chosen-select-no-results": {
+          no_results_text: "Oops, nothing found!"
+        },
+        ".chosen-select-width": {
+          width: "95%"
+        }
+      };
+
+      for (var selector in config) {
+        $(selector).chosen(config[selector]);
+      }
+
+      // Capture the form inputs
+      $("#submit").on("click", function(event) {
+        event.preventDefault();
+
+        // Form validation
+        function validateForm() {
+          var isValid = true;
+          $(".form-control").each(function() {
+            if ($(this).val() === "") {
+              isValid = false;
+            }
+          });
+
+          $(".chosen-select").each(function() {
+            if ($(this).val() === "") {
+              isValid = false;
+            }
+          });
+          return isValid;
+        }
+
+        // If all required fields are filled
+        if (validateForm()) {
+          // Create an object for the user"s data
+          var userData = {
+            name: $("#name").val(),
+            photo: $("#photo").val(),
+            scores: [
+              $("#q1").val(),
+              $("#q2").val(),
+              $("#q3").val(),
+              $("#q4").val(),
+              $("#q5").val(),
+              $("#q6").val(),
+              $("#q7").val(),
+              $("#q8").val(),
+              $("#q9").val(),
+              $("#q10").val()
+            ]
+          };
+
+          // AJAX post the data to the friends API.
+          $.post("/api/friends", userData, function(data) {
+            // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+            $("#match-name").text(data.name);
+            $("#match-img").attr("src", data.photo);
+
+            // Show the modal with the best match
+            $("#results-modal").modal("toggle");
+          });
+        } else {
+          alert("Please fill out all fields before submitting!");
+        }
+      });
+    </script>
   </body>
 </html>

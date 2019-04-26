@@ -1,9 +1,10 @@
 var path = require("path");
 var fs = require('fs');
 module.exports = function(app) {
-  app.get("/api/frineds", function(req, res) {
-    res.sendFile(path.join(__dirname,"../data/friend.js"));
+  app.get("/api/friends", function(req, res) {
+    res.sendFile(path.join(__dirname,"../data/friends.js"));
   });
+var friendsArray = [];
 
   app.post("/api/friends", function(req, res){  
   // Find the best match before adding them to the app so they aren't matched with themselves

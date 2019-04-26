@@ -8,11 +8,12 @@ var PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+var apiRoutes = require("./app/routing/apiRoutes");
+apiRoutes(app);
+
 var htmlRoutes = require("./app/routing/htmlRoutes");
 htmlRoutes(app)
 
-var apiRoutes = require("./app/routing/apiRoutes");
-apiRoutes(app);
 
 app.listen(PORT, function () {
   console.log(`App listening on PORT ${PORT}`);

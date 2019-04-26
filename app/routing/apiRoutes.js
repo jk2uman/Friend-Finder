@@ -1,16 +1,16 @@
-const friendsArray = require("../data/friends");
-
+var path = require("path");
+var fs = require('fs');
 module.exports = function(app) {
-  app.get("/api/frineds", (req, res) => {
-    res.json(friendsArray);
+  app.get("/api/frineds", function(req, res) {
+    res.sendFile(path.join(__dirname,"../data/friend.js"));
   });
 
-  app.post("/api/friends", (req, res) => {
-    // Find the best match before adding them to the app so they aren't matched with themselves
-    const bestMatch = findFriends(req.body, friendsArray);
+  app.post("/api/friends", function(req, res){  
+  // Find the best match before adding them to the app so they aren't matched with themselves
+    const matchBest = findFriends(req.body, friendsArray);
     //Cannot add them then compare because there is no unique identifier. There is nothing stopping the user from using the same name or profile pic as another user.
     friendsArray.push(req.body);
-    res.json(bestMatch);
+    res.json(matchBest);
   });
   //Finding friend with the least difference
   const findFriends = (user, friendsArray) => {

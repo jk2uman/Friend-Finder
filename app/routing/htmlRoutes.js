@@ -1,8 +1,10 @@
-var htmlRouter = require("express").Router();
+var path = require("path");
+module.exports = function (app) {
+    app.get("/survey", function (req, res) {
+        res.sendFile(path.join(__dirname, "../public/home.html"));
+    });
 
-var { getHome, getSurvey } = require("../controller/htmlcontroller");
-htmlRouter.route("/").get(getHome);
-
-htmlRouter.route("/survey").get(getSurvey);
-
-module.exports = { htmlRouter };
+    app.use(function (req, res) {
+        res.sendFile(path.join(__dirname, "../public/survey.html"));
+    });
+}

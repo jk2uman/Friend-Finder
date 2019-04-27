@@ -1,5 +1,5 @@
 const friendsArray = [
-  {// CHange to Black Panther Characters T'Challa Nakia Killmonger and Okoye
+  {
     name: `Nakia`,
     picture: `https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwiq57adiO_hAhUXsJ4KHWquAWQQjRx6BAgBEAU&url=http%3A%2F%2Fwww.zimbio.com%2FThe%2BStars%2Bof%2B%27Black%2BPanther%27%2BIn%2Band%2BOut%2Bof%2BCostume%2Farticles%2F1n2sZ_pd4Gf%2FNakia&psig=AOvVaw00apdAJS0iW5F0s_GpDGt-&ust=1556412941417744`,
     answers: [`2`, `3`, `3`, `4`, `2`, `4`, `2`, `4`, `2`, `3`]

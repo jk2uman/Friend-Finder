@@ -11,7 +11,7 @@ const friendsArray = [
   },
   {
     name: `Okoye`,
-    picture: `https://wearyourvoicemag.com/wp-content/uploads/2018/03/black-panther-lupita-nyong-o.jpg`,
+    picture: `https://vignette.wikia.nocookie.net/marvelmovies/images/c/c0/Danai_Gurira_Galeria_2.jpg/revision/latest/zoom-crop/width/480/height/480?cb=20180121232513`,
     answers: [`2`, `4`, `2`, `3`, `1`, `5`, `1`, `5`, `3`, `1`]
   },
   {
